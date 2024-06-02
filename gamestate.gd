@@ -27,7 +27,7 @@ signal game_ended()
 signal game_error(what)
 
 
-func _process(delta):
+func _process(_delta):
 	Steam.run_callbacks()
 
 
@@ -98,7 +98,7 @@ func host_game(new_player_name):
 	Steam.createLobby(Steam.LOBBY_TYPE_PUBLIC, MAX_PEERS)
 
 
-func join_game(lobby_id, new_player_name):
+func join_game(_lobby_id, new_player_name):
 	player_name = new_player_name
 	Steam.joinLobby(int(lobby_id))
 
@@ -145,14 +145,14 @@ func end_game():
 
 
 func _ready():
-	Steam.steamInit(480)
-	multiplayer.peer_connected.connect(self._player_connected)
-	multiplayer.peer_disconnected.connect(self._player_disconnected)
-	multiplayer.connected_to_server.connect(self._connected_ok)
-	multiplayer.connection_failed.connect(self._connected_fail)
-	multiplayer.server_disconnected.connect(self._server_disconnected)
-	Steam.lobby_joined.connect(_on_lobby_joined.bind())
-	Steam.lobby_created.connect(_on_lobby_created.bind())
+	Steam.steamInit(false, 480)
+	multiplayer.peer_connected.connect(_player_connected)
+	multiplayer.peer_disconnected.connect(_player_disconnected)
+	multiplayer.connected_to_server.connect(_connected_ok)
+	multiplayer.connection_failed.connect(_connected_fail)
+	multiplayer.server_disconnected.connect(_server_disconnected)
+	Steam.lobby_joined.connect(_on_lobby_joined)
+	Steam.lobby_created.connect(_on_lobby_created)
 
 
 func _on_lobby_created(_connect: int, _lobby_id: int):
@@ -165,7 +165,7 @@ func _on_lobby_created(_connect: int, _lobby_id: int):
 		print("Error on create lobby!")
 
 
-func _on_lobby_joined(lobby: int, permissions: int, locked: bool, response: int):
+func _on_lobby_joined(lobby: int, _permissions: int, _locked: bool, response: int):
 	if response == 1:
 		var id = Steam.getLobbyOwner(lobby)
 		if id != Steam.getSteamID():
@@ -188,7 +188,6 @@ func _on_lobby_joined(lobby: int, permissions: int, locked: bool, response: int)
 
 
 func create_socket():
-	print("test")
 	peer = SteamMultiplayerPeer.new()
 	peer.create_host(0, [])
 	multiplayer.set_multiplayer_peer(peer)
