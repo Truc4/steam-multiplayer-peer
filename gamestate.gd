@@ -129,7 +129,7 @@ func begin_game():
 	for p_id in spawn_points:
 		var spawn_pos = world.get_node("SpawnPoints/" + str(spawn_points[p_id])).position
 		var player = player_scene.instantiate()
-		player.synced_position = spawn_pos
+		player.position = spawn_pos
 		player.name = str(p_id)
 		player.set_player_name(player_name if p_id == multiplayer.get_unique_id() else players[p_id])
 		world.get_node("Players").add_child(player)
