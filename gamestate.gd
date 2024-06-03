@@ -95,7 +95,7 @@ func load_world():
 
 func host_game(new_player_name):
 	player_name = new_player_name
-	Steam.createLobby(Steam.LOBBY_TYPE_PUBLIC, MAX_PEERS)
+	Steam.createLobby(Steam.LOBBY_TYPE_FRIENDS_ONLY, MAX_PEERS)
 
 
 func join_game(_lobby_id, new_player_name):

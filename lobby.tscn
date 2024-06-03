@@ -133,6 +133,7 @@ offset_right = 173.0
 offset_bottom = 109.0
 size_flags_horizontal = 2
 size_flags_vertical = 2
+text = "109775243953467706"
 placeholder_text = "Lobby Id Here"
 
 [node name="Host" type="Button" parent="Connect"]
