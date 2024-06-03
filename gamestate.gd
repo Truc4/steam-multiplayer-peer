@@ -145,7 +145,7 @@ func end_game():
 
 
 func _ready():
-	Steam.steamInit(false, 480)
+	Steam.steamInit(true, 2525790)
 	multiplayer.peer_connected.connect(_player_connected)
 	multiplayer.peer_disconnected.connect(_player_disconnected)
 	multiplayer.connected_to_server.connect(_connected_ok)
