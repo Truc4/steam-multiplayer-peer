@@ -98,9 +98,9 @@ func host_game(new_player_name):
 	Steam.createLobby(Steam.LOBBY_TYPE_FRIENDS_ONLY, MAX_PEERS)
 
 
-func join_game(_lobby_id, new_player_name):
+func join_game(new_lobby_id, new_player_name):
 	player_name = new_player_name
-	Steam.joinLobby(int(lobby_id))
+	Steam.joinLobby(int(new_lobby_id))
 
 
 func get_player_list():
@@ -145,7 +145,7 @@ func end_game():
 
 
 func _ready():
-	Steam.steamInit(true, 2525790)
+	Steam.steamInit(true, 480)
 	multiplayer.peer_connected.connect(_player_connected)
 	multiplayer.peer_disconnected.connect(_player_disconnected)
 	multiplayer.connected_to_server.connect(_connected_ok)
@@ -155,10 +155,10 @@ func _ready():
 	Steam.lobby_created.connect(_on_lobby_created)
 
 
-func _on_lobby_created(_connect: int, _lobby_id: int):
+func _on_lobby_created(_connect: int, new_lobby_id: int):
 	if _connect == 1:
-		lobby_id = _lobby_id
-		Steam.setLobbyData(_lobby_id, "name", "test_server")
+		lobby_id = new_lobby_id
+		Steam.setLobbyData(new_lobby_id, "name", "test_server")
 		create_socket()
 		print("Create lobby id:",str(lobby_id))
 	else:
